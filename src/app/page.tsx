@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Star } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { clsx } from "clsx";
@@ -48,15 +48,20 @@ export default function Home() {
 
 function HeroSection() {
   return (
-    <section className="relative w-full min-h-[90vh] flex flex-col items-center justify-center px-8 pt-20">
+    <section className="relative w-full min-h-[90vh] flex flex-col items-center justify-center px-8 pt-20 overflow-hidden">
       <GoldenRatioWatermark />
       
+      {/* Anatomical Blueprint Background Element */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] md:w-[80%] aspect-square -z-10 opacity-[0.05] grayscale select-none pointer-events-none">
+        <img src="/images/blueprint.png" alt="" className="w-full h-full object-contain" />
+      </div>
+
       <motion.div
         variants={revealContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="text-center max-w-6xl"
+        className="text-center max-w-6xl relative z-10"
       >
         <motion.h1
           variants={settleUp}
@@ -94,7 +99,7 @@ function ServicesSection() {
         className="mb-24 flex items-end justify-between border-b border-neutral-200 pb-8"
       >
         <div className="max-w-xl">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-accent font-bold mb-4 block">The Vitruvian Standard</span>
+          <span className="text-[10px] uppercase tracking-[0.3em] text-accent font-bold mb-4 block font-sans">The Vitruvian Standard</span>
           <h2 className="font-serif text-4xl md:text-5xl text-foreground">Curated Restoration</h2>
         </div>
         <p className="hidden md:block text-[11px] uppercase tracking-[0.2em] text-neutral-400 max-w-[200px] text-right leading-relaxed text-pretty">
@@ -144,7 +149,7 @@ function BentoCard({ className, label, subtext }: { className: string, label: st
       <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50 group-hover:opacity-80 transition-opacity duration-700" />
       
       {/* Content Overlay */}
-      <div className="absolute inset-0 p-10 flex flex-col justify-end">
+      <div className="absolute inset-0 p-10 flex flex-col justify-end text-white">
         <div className="relative z-10">
           <h3 className="font-serif text-3xl text-foreground mb-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-700 ease-out">{label}</h3>
           <p className="text-[11px] uppercase tracking-[0.2em] text-neutral-500 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-700 delay-100">{subtext}</p>
@@ -171,14 +176,14 @@ function ReviewsSection() {
   ];
 
   return (
-    <section id="reviews" className="w-full py-40 bg-[#F9F7F2]/50 backdrop-blur-sm border-y border-neutral-200/50 overflow-hidden flex flex-col items-center">
+    <section id="reviews" className="w-full py-48 bg-[#F9F7F2]/30 backdrop-blur-sm border-y border-neutral-200/50 overflow-hidden flex flex-col items-center">
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 1 }}
         className="flex flex-col items-center mb-16"
       >
-        <span className="text-[9px] tracking-[0.5em] uppercase text-accent font-bold mb-4">
+        <span className="text-[9px] tracking-[0.5em] uppercase text-accent font-bold mb-4 font-sans">
           Patron Testimony
         </span>
         <h2 className="font-serif text-2xl text-foreground opacity-80">The 5.0 Standard</h2>
@@ -222,7 +227,7 @@ function ContactSection() {
         className="text-center mb-24"
       >
         <motion.h2 variants={settleUp} className="font-serif text-4xl md:text-6xl text-foreground mb-6">Experience Perfection</motion.h2>
-        <motion.p variants={settleUp} className="text-[10px] uppercase tracking-[0.3em] text-neutral-400 font-medium">A frictionless introduction.</motion.p>
+        <motion.p variants={settleUp} className="text-[10px] uppercase tracking-[0.3em] text-neutral-400 font-medium font-sans">A frictionless introduction.</motion.p>
       </motion.div>
       
       <motion.div 
@@ -235,7 +240,7 @@ function ContactSection() {
         <form className="flex flex-col gap-12" onSubmit={(e) => e.preventDefault()}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="w-full relative group">
-              <label className="text-[8px] uppercase tracking-[0.3em] text-neutral-400 mb-2 block font-bold">Patient Name</label>
+              <label className="text-[8px] uppercase tracking-[0.3em] text-neutral-400 mb-2 block font-bold font-sans">Patient Name</label>
               <input 
                 type="text" 
                 placeholder="Leonardo da Vinci" 
@@ -244,7 +249,7 @@ function ContactSection() {
             </div>
             
             <div className="w-full relative group">
-              <label className="text-[8px] uppercase tracking-[0.3em] text-neutral-400 mb-2 block font-bold">Contact Phone</label>
+              <label className="text-[8px] uppercase tracking-[0.3em] text-neutral-400 mb-2 block font-bold font-sans">Contact Phone</label>
               <input 
                 type="tel" 
                 placeholder="+995 000 000 000" 
@@ -254,7 +259,7 @@ function ContactSection() {
           </div>
           
           <div className="w-full relative group">
-            <label className="text-[8px] uppercase tracking-[0.3em] text-neutral-400 mb-2 block font-bold">Medical Service</label>
+            <label className="text-[8px] uppercase tracking-[0.3em] text-neutral-400 mb-2 block font-bold font-sans">Medical Service</label>
             <select 
               className="w-full appearance-none bg-transparent border-b border-neutral-200 py-3 font-sans text-[10px] uppercase tracking-[0.2em] text-neutral-400 focus:text-foreground focus:outline-none focus:border-accent transition-colors rounded-none"
               defaultValue=""
@@ -289,7 +294,7 @@ function Footer() {
       <div className="font-serif text-xl tracking-[0.05em] font-bold mb-8 md:mb-0">
         DAVINCI
       </div>
-      <div className="flex space-x-12 text-[9px] uppercase tracking-[0.3em] text-neutral-400">
+      <div className="flex space-x-12 text-[9px] uppercase tracking-[0.3em] text-neutral-400 font-sans">
         <p>© 2026 DAVINCI DENTAL</p>
         <a href="#" className="hover:text-accent transition-colors">Privacy</a>
         <a href="#" className="hover:text-accent transition-colors">Terms</a>

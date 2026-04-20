@@ -17,6 +17,10 @@
 
 body {
   background-color: var(--background);
+  background-image: url('/images/parchment.png');
+  background-repeat: repeat;
+  background-size: 800px;
+  background-blend-mode: multiply;
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
