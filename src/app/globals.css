@@ -10,17 +10,13 @@
 }
 
 :root {
-  --background: #F9F7F2;
+  --background: #F4EFE6;
   --foreground: #1C1C1C;
   --accent: #C5A059;
 }
 
 body {
   background-color: var(--background);
-  background-image: url('/images/parchment.png');
-  background-repeat: repeat;
-  background-size: 800px;
-  background-blend-mode: multiply;
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;

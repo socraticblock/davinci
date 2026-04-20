@@ -48,13 +48,8 @@ export default function Home() {
 
 function HeroSection() {
   return (
-    <section className="relative w-full min-h-[90vh] flex flex-col items-center justify-center px-8 pt-20 overflow-hidden">
+    <section className="relative w-full min-h-[90vh] flex flex-col items-center justify-center px-8 pt-20">
       <GoldenRatioWatermark />
-      
-      {/* Anatomical Blueprint Background Element */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] md:w-[80%] aspect-square -z-10 opacity-[0.05] grayscale select-none pointer-events-none">
-        <img src="/images/blueprint.png" alt="" className="w-full h-full object-contain" />
-      </div>
 
       <motion.div
         variants={revealContainer}
