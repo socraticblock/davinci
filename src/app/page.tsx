@@ -207,6 +207,13 @@ function BentoCard({ className, label, subtext }: { className: string, label: st
       {/* Background Gradient Pulse */}
       <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50 group-hover:opacity-80 transition-opacity duration-700" />
       
+      {/* Central Placeholder Indicator */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-1000">
+        <span className="text-[9px] uppercase tracking-[0.4em] text-foreground font-bold font-sans">
+          placeholder to be added
+        </span>
+      </div>
+
       {/* Content Overlay */}
       <div className="absolute inset-0 p-10 flex flex-col justify-end text-white">
         <div className="relative z-10">
