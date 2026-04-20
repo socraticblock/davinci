@@ -82,7 +82,10 @@ function HeroSection() {
 
 function ServicesSection() {
   return (
-    <section id="services" className="w-full max-w-7xl px-8 py-40">
+    <section id="services" className="relative w-full max-w-7xl px-8 py-40">
+      {/* Decorative background element to be blurred by glass */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-accent/20 blur-[120px] -z-10" />
+      
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -133,26 +136,26 @@ function BentoCard({ className, label, subtext }: { className: string, label: st
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
       className={clsx(
-        "group relative overflow-hidden bg-[#1C1C1C] cursor-pointer transition-all duration-700",
+        "group relative overflow-hidden bg-white/5 backdrop-blur-2xl cursor-pointer transition-all duration-700 rounded-lg",
         className
       )}
     >
-      {/* Background with sub-perceptual pulse/zoom */}
-      <div className="absolute inset-0 bg-[#1C1C1C] group-hover:scale-105 transition-transform duration-[2s] ease-out" />
+      {/* Background Gradient Pulse */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50 group-hover:opacity-80 transition-opacity duration-700" />
       
       {/* Content Overlay */}
-      <div className="absolute inset-0 p-8 flex flex-col justify-end">
+      <div className="absolute inset-0 p-10 flex flex-col justify-end">
         <div className="relative z-10">
-          <h3 className="font-serif text-2xl text-white mb-2 translate-y-2 group-hover:translate-y-0 transition-transform duration-700 ease-out">{label}</h3>
-          <p className="text-[10px] uppercase tracking-[0.2em] text-neutral-400 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">{subtext}</p>
+          <h3 className="font-serif text-3xl text-foreground mb-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-700 ease-out">{label}</h3>
+          <p className="text-[11px] uppercase tracking-[0.2em] text-neutral-500 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-700 delay-100">{subtext}</p>
         </div>
       </div>
 
-      {/* Gold Border Transition */}
-      <div className="absolute inset-0 border-[0.5px] border-white/5 group-hover:border-accent group-hover:border-opacity-100 transition-all duration-700" />
+      {/* Glass Borders */}
+      <div className="absolute inset-0 border border-white/20 rounded-lg group-hover:border-accent/40 shadow-inner transition-all duration-700" />
       
-      {/* Corner Accent */}
-      <div className="absolute top-6 right-6 w-4 h-4 border-t border-r border-accent opacity-0 translate-x-2 -translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-700 delay-200" />
+      {/* Dynamic Shine Effect */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
     </motion.div>
   );
 }
@@ -168,7 +171,7 @@ function ReviewsSection() {
   ];
 
   return (
-    <section id="reviews" className="w-full py-48 bg-[#F9F7F2] border-y border-neutral-200 overflow-hidden flex flex-col items-center">
+    <section id="reviews" className="w-full py-48 bg-[#F9F7F2]/50 backdrop-blur-sm border-y border-neutral-200/50 overflow-hidden flex flex-col items-center">
       <motion.span 
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -180,7 +183,7 @@ function ReviewsSection() {
       <div className="relative w-full flex overflow-hidden">
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
-          transition={{ ease: "linear", duration: 40, repeat: Infinity }}
+          transition={{ ease: "linear", duration: 45, repeat: Infinity }}
           className="flex whitespace-nowrap"
         >
           {[...reviews, ...reviews, ...reviews, ...reviews].map((review, idx) => (
@@ -190,7 +193,7 @@ function ReviewsSection() {
                   <Star key={i} size={11} fill="currentColor" strokeWidth={0} />
                 ))}
               </div>
-              <p className="font-serif text-3xl md:text-4xl text-foreground tracking-tight italic opacity-90">"{review}"</p>
+              <p className="font-serif text-3xl md:text-5xl text-foreground tracking-tight italic opacity-90">"{review}"</p>
             </div>
           ))}
         </motion.div>
@@ -201,7 +204,10 @@ function ReviewsSection() {
 
 function ContactSection() {
   return (
-    <section id="contact" className="w-full max-w-4xl px-8 py-48 flex flex-col items-center justify-center">
+    <section id="contact" className="relative w-full px-8 py-64 flex flex-col items-center justify-center overflow-hidden">
+      {/* Background glass sphere */}
+      <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-accent/10 blur-[150px] -z-10 animate-pulse" />
+      
       <motion.div 
         variants={revealContainer}
         initial="hidden"
@@ -210,52 +216,63 @@ function ContactSection() {
         className="text-center mb-24"
       >
         <motion.h2 variants={settleUp} className="font-serif text-4xl md:text-6xl text-foreground mb-6">Experience Perfection</motion.h2>
-        <motion.p variants={settleUp} className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">A frictionless introduction.</motion.p>
+        <motion.p variants={settleUp} className="text-[10px] uppercase tracking-[0.3em] text-neutral-400 font-medium">A frictionless introduction.</motion.p>
       </motion.div>
       
-      <form className="w-full flex shadow-sm flex-col gap-10 max-w-lg" onSubmit={(e) => e.preventDefault()}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          <div className="w-full relative group">
-            <input 
-              type="text" 
-              placeholder="Name" 
-              className="w-full bg-transparent border-b border-neutral-200 py-3 font-sans text-xs uppercase tracking-widest text-foreground placeholder:text-neutral-300 focus:outline-none focus:border-accent transition-colors"
-            />
+      <motion.div 
+        variants={settleUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="w-full max-w-xl p-12 bg-white/40 backdrop-blur-3xl border border-white/40 rounded-2xl shadow-2xl shadow-accent/5"
+      >
+        <form className="flex flex-col gap-12" onSubmit={(e) => e.preventDefault()}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="w-full relative group">
+              <label className="text-[8px] uppercase tracking-[0.3em] text-neutral-400 mb-2 block font-bold">Patient Name</label>
+              <input 
+                type="text" 
+                placeholder="Leonardo da Vinci" 
+                className="w-full bg-transparent border-b border-neutral-200 py-3 font-sans text-xs uppercase tracking-widest text-foreground placeholder:text-neutral-300 focus:outline-none focus:border-accent transition-colors"
+              />
+            </div>
+            
+            <div className="w-full relative group">
+              <label className="text-[8px] uppercase tracking-[0.3em] text-neutral-400 mb-2 block font-bold">Contact Phone</label>
+              <input 
+                type="tel" 
+                placeholder="+995 000 000 000" 
+                className="w-full bg-transparent border-b border-neutral-200 py-3 font-sans text-xs uppercase tracking-widest text-foreground placeholder:text-neutral-300 focus:outline-none focus:border-accent transition-colors"
+              />
+            </div>
           </div>
           
           <div className="w-full relative group">
-            <input 
-              type="tel" 
-              placeholder="Phone" 
-              className="w-full bg-transparent border-b border-neutral-200 py-3 font-sans text-xs uppercase tracking-widest text-foreground placeholder:text-neutral-300 focus:outline-none focus:border-accent transition-colors"
-            />
+            <label className="text-[8px] uppercase tracking-[0.3em] text-neutral-400 mb-2 block font-bold">Medical Service</label>
+            <select 
+              className="w-full appearance-none bg-transparent border-b border-neutral-200 py-3 font-sans text-[10px] uppercase tracking-[0.2em] text-neutral-400 focus:text-foreground focus:outline-none focus:border-accent transition-colors rounded-none"
+              defaultValue=""
+            >
+              <option value="" disabled>Select Treatment</option>
+              <option value="aesthetic">Aesthetic Restoration</option>
+              <option value="implant">Implantology</option>
+              <option value="prevention">Prevention</option>
+            </select>
+            <div className="absolute right-0 top-1/2 translate-y-1 text-neutral-300 text-[8px]">
+              ▼
+            </div>
           </div>
-        </div>
-        
-        <div className="w-full relative group">
-          <select 
-            className="w-full appearance-none bg-transparent border-b border-neutral-200 py-3 font-sans text-[10px] uppercase tracking-[0.2em] text-neutral-400 focus:text-foreground focus:outline-none focus:border-accent transition-colors rounded-none"
-            defaultValue=""
-          >
-            <option value="" disabled>Select Treatment</option>
-            <option value="aesthetic">Aesthetic Restoration</option>
-            <option value="implant">Implantology</option>
-            <option value="prevention">Prevention</option>
-          </select>
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-300 text-[8px]">
-            ▼
-          </div>
-        </div>
 
-        <motion.button 
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          type="submit" 
-          className="w-full mt-12 bg-foreground text-background py-5 uppercase tracking-[0.4em] font-sans text-[10px] hover:bg-accent transition-colors duration-500"
-        >
-          Submit Request
-        </motion.button>
-      </form>
+          <motion.button 
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            type="submit" 
+            className="w-full mt-8 bg-foreground text-background py-5 uppercase tracking-[0.5em] font-sans text-[10px] hover:bg-accent transition-colors duration-700 shadow-xl shadow-black/10 font-bold"
+          >
+            Schedule Consultation
+          </motion.button>
+        </form>
+      </motion.div>
     </section>
   );
 }
