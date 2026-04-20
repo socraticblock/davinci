@@ -167,22 +167,25 @@ function AboutSection() {
           </div>
         </motion.div>
 
-        {/* Portait Placeholder */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
-          className="relative aspect-[4/5] bg-neutral-900 overflow-hidden rounded-sm group"
+          className="relative aspect-[4/5] overflow-hidden rounded-sm group bg-neutral-200"
         >
-          {/* Subtle noise/gradient in the placeholder */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-black to-neutral-800 opacity-50" />
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <span className="text-[10px] uppercase tracking-[0.4em] text-white/20">Lead Portrait</span>
-          </div>
+          {/* Portrait Image with Luxury Grayscale-to-Color Transition */}
+          <img 
+            src="/images/dr-nikoloz.png" 
+            alt="Dr. Nikoloz Jorjikashvili" 
+            className="w-full h-full object-cover transition-all duration-1000 ease-out grayscale group-hover:grayscale-0 group-hover:scale-105"
+          />
           
           {/* Glass frame overlay */}
-          <div className="absolute inset-0 border border-white/5 group-hover:border-accent/30 transition-colors duration-700" />
+          <div className="absolute inset-0 border border-white/10 group-hover:border-accent/40 transition-colors duration-700" />
+          
+          {/* Subtle vignette for depth */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60 pointer-events-none" />
         </motion.div>
       </div>
     </section>
