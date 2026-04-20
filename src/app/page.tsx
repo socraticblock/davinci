@@ -213,45 +213,47 @@ function ContactSection() {
         <motion.p variants={settleUp} className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">A frictionless introduction.</motion.p>
       </motion.div>
       
-      <form className="w-full flex shadow-sm flex-col gap-10 max-w-lg" onSubmit={(e) => e.preventDefault()}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          <div className="w-full relative group">
-            <input 
-              type="text" 
-              placeholder="Name" 
-              className="w-full bg-transparent border-b border-neutral-200 py-3 font-sans text-xs uppercase tracking-widest text-foreground placeholder:text-neutral-300 focus:outline-none focus:border-accent transition-colors"
-            />
+      <form className="w-full flex flex-col max-w-2xl bg-white/40 backdrop-blur-2xl border border-white/40 rounded-sm shadow-2xl overflow-hidden" onSubmit={(e) => e.preventDefault()}>
+        <div className="p-12 md:p-16 flex flex-col gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="w-full relative group">
+              <input 
+                type="text" 
+                placeholder="Name" 
+                className="w-full bg-transparent border-b border-neutral-200/50 py-4 font-sans text-xs uppercase tracking-[0.2em] text-foreground placeholder:text-neutral-400 focus:outline-none focus:border-accent transition-colors"
+              />
+            </div>
+            
+            <div className="w-full relative group">
+              <input 
+                type="tel" 
+                placeholder="Phone" 
+                className="w-full bg-transparent border-b border-neutral-200/50 py-4 font-sans text-xs uppercase tracking-[0.2em] text-foreground placeholder:text-neutral-400 focus:outline-none focus:border-accent transition-colors"
+              />
+            </div>
           </div>
           
           <div className="w-full relative group">
-            <input 
-              type="tel" 
-              placeholder="Phone" 
-              className="w-full bg-transparent border-b border-neutral-200 py-3 font-sans text-xs uppercase tracking-widest text-foreground placeholder:text-neutral-300 focus:outline-none focus:border-accent transition-colors"
-            />
-          </div>
-        </div>
-        
-        <div className="w-full relative group">
-          <select 
-            className="w-full appearance-none bg-transparent border-b border-neutral-200 py-3 font-sans text-[10px] uppercase tracking-[0.2em] text-neutral-400 focus:text-foreground focus:outline-none focus:border-accent transition-colors rounded-none"
-            defaultValue=""
-          >
-            <option value="" disabled>Select Treatment</option>
-            <option value="aesthetic">Aesthetic Restoration</option>
-            <option value="implant">Implantology</option>
-            <option value="prevention">Prevention</option>
-          </select>
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-300 text-[8px]">
-            ▼
+            <select 
+              className="w-full appearance-none bg-transparent border-b border-neutral-200/50 py-4 font-sans text-[10px] uppercase tracking-[0.3em] text-neutral-400 focus:text-foreground focus:outline-none focus:border-accent transition-colors rounded-none cursor-pointer"
+              defaultValue=""
+            >
+              <option value="" disabled>Select Treatment</option>
+              <option value="aesthetic">Aesthetic Restoration</option>
+              <option value="implant">Implantology</option>
+              <option value="prevention">Prevention</option>
+            </select>
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-400 text-[8px]">
+              ▼
+            </div>
           </div>
         </div>
 
         <motion.button 
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1 }}
           whileTap={{ scale: 0.98 }}
           type="submit" 
-          className="w-full mt-12 bg-foreground text-background py-5 uppercase tracking-[0.4em] font-sans text-[10px] hover:bg-accent transition-colors duration-500"
+          className="w-full bg-foreground text-background py-8 uppercase tracking-[0.5em] font-sans text-[10px] hover:bg-accent transition-colors duration-500 font-bold"
         >
           Submit Request
         </motion.button>
