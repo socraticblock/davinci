@@ -1,32 +1,33 @@
 "use client";
 
-import { motion, useAnimation, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Star } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { clsx } from "clsx";
+import { GoldenRatioWatermark } from "@/components/film-grain";
 
-const staggerContainer = {
+// Stagger Animation Variants
+const revealContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.3,
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
     },
   },
 };
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" as const } },
-};
-
-const imageScale = {
-  hidden: { opacity: 0, scale: 0.95 },
+const settleUp = {
+  hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
-    scale: 1,
-    transition: { duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] as const },
+    y: 0,
+    transition: {
+      duration: 1.2,
+      ease: [0.16, 1, 0.3, 1] as const, // Custom luxury cubic-bezier (expo-out)
+    },
   },
 };
 
@@ -34,11 +35,12 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="flex min-h-screen flex-col items-center overflow-hidden pt-20">
+      <main className="flex min-h-screen flex-col items-center overflow-hidden">
         <HeroSection />
         <ServicesSection />
         <ReviewsSection />
         <ContactSection />
+        <Footer />
       </main>
     </>
   );
@@ -46,163 +48,112 @@ export default function Home() {
 
 function HeroSection() {
   return (
-    <section className="w-full max-w-7xl px-8 py-32 flex flex-col items-center">
+    <section className="relative w-full min-h-[90vh] flex flex-col items-center justify-center px-8 pt-20">
+      <GoldenRatioWatermark />
+      
       <motion.div
-        variants={staggerContainer}
+        variants={revealContainer}
         initial="hidden"
-        animate="visible"
-        className="w-full flex justify-center items-center flex-col text-center"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="text-center max-w-6xl"
       >
         <motion.h1
-          variants={fadeUp}
-          className="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight text-foreground max-w-5xl leading-tight"
+          variants={settleUp}
+          className="font-serif text-[clamp(2.5rem,8vw,6.5rem)] leading-[1.1] tracking-tight text-foreground mb-12"
         >
-          Simplicity is the ultimate sophistication.
+          Simplicity is the <br /> ultimate sophistication.
         </motion.h1>
         
-        <motion.p
-          variants={fadeUp}
-          className="mt-8 text-lg md:text-xl text-neutral-600 font-sans tracking-wide max-w-2xl"
-        >
-          DaVinci Dental Clinic. Precision in every detail. Sophistication in every smile.
-        </motion.p>
-        
-        <motion.div
-          variants={imageScale}
-          className="mt-20 w-full aspect-video bg-neutral-900 animate-pulse rounded-sm overflow-hidden relative"
-        >
-          {/* 16:9 Black Placeholder */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
-            <span className="text-white tracking-widest uppercase text-xs">Visual Placeholder</span>
-          </div>
+        <motion.div variants={settleUp} className="flex flex-col items-center">
+          <div className="h-20 w-[1px] bg-foreground/10 mb-12" />
+          <p className="text-[11px] uppercase tracking-[0.4em] text-neutral-500 max-w-md leading-loose">
+            DaVinci Dental Clinic. Precision in every detail. <br />
+            Sophistication in every smile.
+          </p>
         </motion.div>
       </motion.div>
+
+      {/* Massive whitespace buffer to the next section */}
+      <div className="h-[20vh]" />
     </section>
   );
 }
 
 function ServicesSection() {
   return (
-    <section id="services" className="w-full max-w-7xl px-8 py-32 border-t border-neutral-200/50">
-      <div className="mb-16">
-        <h2 className="font-serif text-3xl md:text-4xl text-foreground">The Vitruvian Standard</h2>
-      </div>
+    <section id="services" className="w-full max-w-7xl px-8 py-40">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+        className="mb-24 flex items-end justify-between border-b border-neutral-200 pb-8"
+      >
+        <div className="max-w-xl">
+          <span className="text-[10px] uppercase tracking-[0.3em] text-accent font-bold mb-4 block">The Vitruvian Standard</span>
+          <h2 className="font-serif text-4xl md:text-5xl text-foreground">Curated Restoration</h2>
+        </div>
+        <p className="hidden md:block text-[11px] uppercase tracking-[0.2em] text-neutral-400 max-w-[200px] text-right leading-relaxed text-pretty">
+          Every procedure is a masterpiece of dental engineering.
+        </p>
+      </motion.div>
       
-      <div className="grid grid-cols-1 md:grid-cols-6 md:grid-rows-2 gap-4 h-auto md:h-[600px]">
+      <div className="grid grid-cols-1 md:grid-cols-6 md:grid-rows-2 gap-6 h-auto md:h-[700px]">
         {/* Card 1: Aesthetic Restoration */}
-        <ServiceCard 
+        <BentoCard 
           className="md:col-span-4 md:row-span-2"
           label="Aesthetic Restoration"
-          description="The intersection of art and dentistry."
-          sketchSrc="/images/sketch-teeth.png"
-          photoSrc="/images/photo-teeth.png"
+          subtext="The intersection of art and anatomy."
         />
         
         {/* Card 2: Implantology */}
-        <ServiceCard 
+        <BentoCard 
           className="md:col-span-2 md:row-span-1"
           label="Implantology"
-          description="Structural integrity."
-          sketchSrc="/images/sketch-implant.png"
-          photoSrc="/images/photo-implant.png"
-          small
+          subtext="Structural integrity."
         />
         
         {/* Card 3: Prevention */}
-        <ServiceCard 
+        <BentoCard 
           className="md:col-span-2 md:row-span-1"
           label="Prevention"
-          description="Lasting sophistication."
-          sketchSrc="/images/sketch-teeth.png" 
-          photoSrc="/images/photo-teeth.png"
-          small
+          subtext="Lasting sophistication."
         />
       </div>
     </section>
   );
 }
 
-function ServiceCard({ 
-  className, 
-  label, 
-  description, 
-  sketchSrc, 
-  photoSrc, 
-  small = false 
-}: { 
-  className: string; 
-  label: string; 
-  description: string; 
-  sketchSrc: string; 
-  photoSrc: string; 
-  small?: boolean;
-}) {
-  const [isHovered, setIsHovered] = useState(false);
-
+function BentoCard({ className, label, subtext }: { className: string, label: string, subtext: string }) {
   return (
-    <div 
+    <motion.div 
+      variants={settleUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
       className={clsx(
-        "group relative flex flex-col overflow-hidden border-[0.5px] border-neutral-200 transition-all duration-700 cursor-pointer",
-        isHovered ? "border-accent" : "border-neutral-200",
+        "group relative overflow-hidden bg-[#1C1C1C] cursor-pointer transition-all duration-700",
         className
       )}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Sketch Layer (Art) */}
-      <div 
-        className={clsx(
-          "absolute inset-0 z-10 transition-opacity duration-1000 ease-in-out",
-          isHovered ? "opacity-0" : "opacity-100"
-        )}
-      >
-        <img 
-          src={sketchSrc} 
-          alt={label} 
-          className="w-full h-full object-cover grayscale opacity-80" 
-        />
-        <div className="absolute inset-0 bg-background/20 mix-blend-multiply" />
+      {/* Background with sub-perceptual pulse/zoom */}
+      <div className="absolute inset-0 bg-[#1C1C1C] group-hover:scale-105 transition-transform duration-[2s] ease-out" />
+      
+      {/* Content Overlay */}
+      <div className="absolute inset-0 p-8 flex flex-col justify-end">
+        <div className="relative z-10">
+          <h3 className="font-serif text-2xl text-white mb-2 translate-y-2 group-hover:translate-y-0 transition-transform duration-700 ease-out">{label}</h3>
+          <p className="text-[10px] uppercase tracking-[0.2em] text-neutral-400 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">{subtext}</p>
+        </div>
       </div>
 
-      {/* Photo Layer (Reality) */}
-      <div 
-        className={clsx(
-          "absolute inset-0 z-0 transition-all duration-1000 ease-in-out scale-110",
-          isHovered ? "opacity-100 scale-100" : "opacity-0 scale-110"
-        )}
-      >
-        <img 
-          src={photoSrc} 
-          alt={label} 
-          className="w-full h-full object-cover" 
-        />
-        {/* Subtle overlay to keep text readable */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-      </div>
-
-      {/* Label/Description Content */}
-      <div className="mt-auto p-6 z-20 relative">
-        <h3 className={clsx(
-          "font-serif transition-colors duration-500",
-          isHovered || !small ? "text-white" : "text-foreground",
-          small ? "text-xl" : "text-2xl md:text-3xl"
-        )}>
-          {label}
-        </h3>
-        <p className={clsx(
-          "text-sm mt-2 font-sans tracking-wide transition-colors duration-500",
-          isHovered || !small ? "text-neutral-300" : "text-neutral-500"
-        )}>
-          {description}
-        </p>
-      </div>
-
-      {/* Animated Corner Border (Gold) */}
-      <div className={clsx(
-        "absolute top-0 right-0 w-8 h-8 border-t border-r border-accent transition-all duration-500 opacity-0",
-        isHovered ? "opacity-100 translate-x-0 translate-y-0" : "translate-x-2 -translate-y-2"
-      )} />
-    </div>
+      {/* Gold Border Transition */}
+      <div className="absolute inset-0 border-[0.5px] border-white/5 group-hover:border-accent group-hover:border-opacity-100 transition-all duration-700" />
+      
+      {/* Corner Accent */}
+      <div className="absolute top-6 right-6 w-4 h-4 border-t border-r border-accent opacity-0 translate-x-2 -translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-700 delay-200" />
+    </motion.div>
   );
 }
 
@@ -217,23 +168,29 @@ function ReviewsSection() {
   ];
 
   return (
-    <section id="reviews" className="w-full py-40 bg-foreground text-background overflow-hidden flex flex-col items-center">
-      <h2 className="font-serif text-sm tracking-[0.3em] uppercase text-neutral-400 mb-16">The 5.0 Standard</h2>
+    <section id="reviews" className="w-full py-48 bg-[#F9F7F2] border-y border-neutral-200 overflow-hidden flex flex-col items-center">
+      <motion.span 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        className="text-[10px] tracking-[0.4em] uppercase text-neutral-400 mb-20 font-bold"
+      >
+        The 5.0 Standard
+      </motion.span>
       
       <div className="relative w-full flex overflow-hidden">
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
-          transition={{ ease: "linear", duration: 25, repeat: Infinity }}
+          transition={{ ease: "linear", duration: 40, repeat: Infinity }}
           className="flex whitespace-nowrap"
         >
           {[...reviews, ...reviews, ...reviews, ...reviews].map((review, idx) => (
-            <div key={idx} className="flex flex-col items-center justify-center mx-16">
-              <div className="flex space-x-1 mb-4 text-accent">
+            <div key={idx} className="flex flex-col items-center justify-center mx-24">
+              <div className="flex space-x-1.5 mb-8 text-accent/40">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} size={16} fill="currentColor" strokeWidth={0} />
+                  <Star key={i} size={11} fill="currentColor" strokeWidth={0} />
                 ))}
               </div>
-              <p className="font-serif text-2xl italic">"{review}"</p>
+              <p className="font-serif text-3xl md:text-4xl text-foreground tracking-tight italic opacity-90">"{review}"</p>
             </div>
           ))}
         </motion.div>
@@ -244,32 +201,40 @@ function ReviewsSection() {
 
 function ContactSection() {
   return (
-    <section id="contact" className="w-full max-w-4xl px-8 py-32 flex flex-col items-center justify-center">
-      <div className="text-center mb-16">
-        <h2 className="font-serif text-4xl text-foreground mb-4">Experience Perfection</h2>
-        <p className="text-neutral-500 font-sans">A frictionless introduction.</p>
-      </div>
+    <section id="contact" className="w-full max-w-4xl px-8 py-48 flex flex-col items-center justify-center">
+      <motion.div 
+        variants={revealContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="text-center mb-24"
+      >
+        <motion.h2 variants={settleUp} className="font-serif text-4xl md:text-6xl text-foreground mb-6">Experience Perfection</motion.h2>
+        <motion.p variants={settleUp} className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">A frictionless introduction.</motion.p>
+      </motion.div>
       
-      <form className="w-full flex flex-col gap-8 max-w-md" onSubmit={(e) => e.preventDefault()}>
-        <div className="w-full">
-          <input 
-            type="text" 
-            placeholder="Name" 
-            className="w-full bg-transparent border-b border-neutral-300 py-3 font-sans text-foreground placeholder:text-neutral-400 focus:outline-none focus:border-accent transition-colors"
-          />
+      <form className="w-full flex shadow-sm flex-col gap-10 max-w-lg" onSubmit={(e) => e.preventDefault()}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div className="w-full relative group">
+            <input 
+              type="text" 
+              placeholder="Name" 
+              className="w-full bg-transparent border-b border-neutral-200 py-3 font-sans text-xs uppercase tracking-widest text-foreground placeholder:text-neutral-300 focus:outline-none focus:border-accent transition-colors"
+            />
+          </div>
+          
+          <div className="w-full relative group">
+            <input 
+              type="tel" 
+              placeholder="Phone" 
+              className="w-full bg-transparent border-b border-neutral-200 py-3 font-sans text-xs uppercase tracking-widest text-foreground placeholder:text-neutral-300 focus:outline-none focus:border-accent transition-colors"
+            />
+          </div>
         </div>
         
-        <div className="w-full">
-          <input 
-            type="tel" 
-            placeholder="Phone" 
-            className="w-full bg-transparent border-b border-neutral-300 py-3 font-sans text-foreground placeholder:text-neutral-400 focus:outline-none focus:border-accent transition-colors"
-          />
-        </div>
-        
-        <div className="w-full relative">
+        <div className="w-full relative group">
           <select 
-            className="w-full appearance-none bg-transparent border-b border-neutral-300 py-3 font-sans text-neutral-400 focus:text-foreground focus:outline-none focus:border-accent transition-colors rounded-none"
+            className="w-full appearance-none bg-transparent border-b border-neutral-200 py-3 font-sans text-[10px] uppercase tracking-[0.2em] text-neutral-400 focus:text-foreground focus:outline-none focus:border-accent transition-colors rounded-none"
             defaultValue=""
           >
             <option value="" disabled>Select Treatment</option>
@@ -277,51 +242,35 @@ function ContactSection() {
             <option value="implant">Implantology</option>
             <option value="prevention">Prevention</option>
           </select>
-          {/* Custom Chevron since appearance-none removes default */}
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-400 text-xs">
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-300 text-[8px]">
             ▼
           </div>
         </div>
 
-        <MagneticButton>
-          <button 
-            type="submit" 
-            className="w-full mt-8 bg-foreground text-background py-4 uppercase tracking-[0.2em] font-sans text-sm hover:scale-105 active:scale-95 transition-transform duration-300 spring-bounce"
-          >
-            Submit Request
-          </button>
-        </MagneticButton>
+        <motion.button 
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          type="submit" 
+          className="w-full mt-12 bg-foreground text-background py-5 uppercase tracking-[0.4em] font-sans text-[10px] hover:bg-accent transition-colors duration-500"
+        >
+          Submit Request
+        </motion.button>
       </form>
     </section>
   );
 }
 
-function MagneticButton({ children }: { children: React.ReactElement }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
-    const { clientX, clientY } = e;
-    const { height, width, left, top } = ref.current!.getBoundingClientRect();
-    const middleX = clientX - (left + width / 2);
-    const middleY = clientY - (top + height / 2);
-    setPosition({ x: middleX * 0.2, y: middleY * 0.2 });
-  };
-
-  const reset = () => {
-    setPosition({ x: 0, y: 0 });
-  };
-
+function Footer() {
   return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMouse}
-      onMouseLeave={reset}
-      animate={{ x: position.x, y: position.y }}
-      transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
-      className="w-full"
-    >
-      {children}
-    </motion.div>
+    <footer className="w-full max-w-7xl px-8 py-20 border-t border-neutral-200 flex flex-col md:flex-row items-center justify-between">
+      <div className="font-serif text-xl tracking-[0.05em] font-bold mb-8 md:mb-0">
+        DAVINCI
+      </div>
+      <div className="flex space-x-12 text-[9px] uppercase tracking-[0.3em] text-neutral-400">
+        <p>© 2026 DAVINCI DENTAL</p>
+        <a href="#" className="hover:text-accent transition-colors">Privacy</a>
+        <a href="#" className="hover:text-accent transition-colors">Terms</a>
+      </div>
+    </footer>
   );
 }
