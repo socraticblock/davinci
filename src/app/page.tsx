@@ -262,7 +262,7 @@ function ReviewsSection() {
           className="flex whitespace-nowrap items-center"
         >
           {[...reviews, ...reviews, ...reviews, ...reviews].map((review, idx) => (
-            <div key={idx} className="flex flex-col items-center justify-center mx-64">
+            <div key={idx} className="flex flex-col items-center justify-center mx-30 max-w-2xl">
               <div className="flex space-x-1 mb-6 text-accent/50">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star key={i} size={9} fill="currentColor" strokeWidth={0} />
