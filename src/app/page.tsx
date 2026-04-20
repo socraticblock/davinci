@@ -88,34 +88,120 @@ function ServicesSection() {
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-6 md:grid-rows-2 gap-4 h-auto md:h-[600px]">
-        {/* Card 1 */}
-        <div className="md:col-span-4 md:row-span-2 group min-h-[300px] border-[0.5px] border-neutral-200 hover:border-accent transition-colors duration-500 relative flex flex-col overflow-hidden p-6 cursor-pointer">
-          <div className="absolute inset-0 bg-neutral-900 animate-pulse -z-10 group-hover:scale-105 transition-transform duration-1000 ease-in-out" />
-          <div className="mt-auto">
-            <h3 className="text-white font-serif text-2xl">Aesthetic Restoration</h3>
-            <p className="text-neutral-400 text-sm mt-2 font-sans tracking-wide">The intersection of art and dentistry.</p>
-          </div>
-        </div>
+        {/* Card 1: Aesthetic Restoration */}
+        <ServiceCard 
+          className="md:col-span-4 md:row-span-2"
+          label="Aesthetic Restoration"
+          description="The intersection of art and dentistry."
+          sketchSrc="/images/sketch-teeth.png"
+          photoSrc="/images/photo-teeth.png"
+        />
         
-        {/* Card 2 */}
-        <div className="md:col-span-2 md:row-span-1 group min-h-[250px] border-[0.5px] border-neutral-200 hover:border-accent transition-colors duration-500 relative flex flex-col overflow-hidden p-6 cursor-pointer">
-           <div className="absolute inset-0 bg-neutral-900/90 animate-pulse -z-10 group-hover:scale-105 transition-transform duration-1000 ease-in-out" />
-           <div className="mt-auto">
-            <h3 className="text-white font-serif text-xl">Implantology</h3>
-            <p className="text-neutral-400 text-xs mt-2 font-sans tracking-wide">Structural integrity.</p>
-          </div>
-        </div>
+        {/* Card 2: Implantology */}
+        <ServiceCard 
+          className="md:col-span-2 md:row-span-1"
+          label="Implantology"
+          description="Structural integrity."
+          sketchSrc="/images/sketch-implant.png"
+          photoSrc="/images/photo-implant.png"
+          small
+        />
         
-        {/* Card 3 */}
-        <div className="md:col-span-2 md:row-span-1 group min-h-[250px] border-[0.5px] border-neutral-200 hover:border-accent transition-colors duration-500 relative flex flex-col overflow-hidden p-6 cursor-pointer">
-           <div className="absolute inset-0 bg-neutral-900/80 animate-pulse -z-10 group-hover:scale-105 transition-transform duration-1000 ease-in-out" />
-           <div className="mt-auto">
-            <h3 className="text-white font-serif text-xl">Prevention</h3>
-            <p className="text-neutral-400 text-xs mt-2 font-sans tracking-wide">Lasting sophistication.</p>
-          </div>
-        </div>
+        {/* Card 3: Prevention */}
+        <ServiceCard 
+          className="md:col-span-2 md:row-span-1"
+          label="Prevention"
+          description="Lasting sophistication."
+          sketchSrc="/images/sketch-teeth.png" 
+          photoSrc="/images/photo-teeth.png"
+          small
+        />
       </div>
     </section>
+  );
+}
+
+function ServiceCard({ 
+  className, 
+  label, 
+  description, 
+  sketchSrc, 
+  photoSrc, 
+  small = false 
+}: { 
+  className: string; 
+  label: string; 
+  description: string; 
+  sketchSrc: string; 
+  photoSrc: string; 
+  small?: boolean;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div 
+      className={clsx(
+        "group relative flex flex-col overflow-hidden border-[0.5px] border-neutral-200 transition-all duration-700 cursor-pointer",
+        isHovered ? "border-accent" : "border-neutral-200",
+        className
+      )}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Sketch Layer (Art) */}
+      <div 
+        className={clsx(
+          "absolute inset-0 z-10 transition-opacity duration-1000 ease-in-out",
+          isHovered ? "opacity-0" : "opacity-100"
+        )}
+      >
+        <img 
+          src={sketchSrc} 
+          alt={label} 
+          className="w-full h-full object-cover grayscale opacity-80" 
+        />
+        <div className="absolute inset-0 bg-background/20 mix-blend-multiply" />
+      </div>
+
+      {/* Photo Layer (Reality) */}
+      <div 
+        className={clsx(
+          "absolute inset-0 z-0 transition-all duration-1000 ease-in-out scale-110",
+          isHovered ? "opacity-100 scale-100" : "opacity-0 scale-110"
+        )}
+      >
+        <img 
+          src={photoSrc} 
+          alt={label} 
+          className="w-full h-full object-cover" 
+        />
+        {/* Subtle overlay to keep text readable */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+      </div>
+
+      {/* Label/Description Content */}
+      <div className="mt-auto p-6 z-20 relative">
+        <h3 className={clsx(
+          "font-serif transition-colors duration-500",
+          isHovered || !small ? "text-white" : "text-foreground",
+          small ? "text-xl" : "text-2xl md:text-3xl"
+        )}>
+          {label}
+        </h3>
+        <p className={clsx(
+          "text-sm mt-2 font-sans tracking-wide transition-colors duration-500",
+          isHovered || !small ? "text-neutral-300" : "text-neutral-500"
+        )}>
+          {description}
+        </p>
+      </div>
+
+      {/* Animated Corner Border (Gold) */}
+      <div className={clsx(
+        "absolute top-0 right-0 w-8 h-8 border-t border-r border-accent transition-all duration-500 opacity-0",
+        isHovered ? "opacity-100 translate-x-0 translate-y-0" : "translate-x-2 -translate-y-2"
+      )} />
+    </div>
   );
 }
 
