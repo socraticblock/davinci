@@ -162,7 +162,7 @@ function AboutSection() {
             </motion.div>
             
             <motion.p variants={settleUp} className="text-sm text-neutral-400 leading-loose max-w-md font-sans">
-              Our practice is dedicated to the philosophy that a smile is a masterpiece of engineering. With 10+ years of treatng complex clinical cases, Dr. Jorjikashvili has defined a new standard for natural restoration in Tbilisi, ensuring every patient receives a result that is uniquely theirs.
+              Our practice is dedicated to the philosophy that a smile is a masterpiece of engineering. With 10+ years of treating complex clinical cases, Dr. Jorjikashvili has defined a new standard for natural restoration in Tbilisi, ensuring every patient receives a result that is uniquely theirs.
             </motion.p>
           </div>
         </motion.div>
