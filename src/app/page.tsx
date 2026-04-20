@@ -162,12 +162,12 @@ function BentoCard({ className, label, subtext }: { className: string, label: st
 
 function ReviewsSection() {
   const reviews = [
-    "Artistic precision.",
-    "Best in Tbilisi.",
-    "Uncompromising quality.",
-    "True craftsmanship.",
-    "A masterful approach.",
-    "Redefining dental care."
+    "Great price, great service, friendly doctor and staff.",
+    "I’m very happy about the quality and price.",
+    "The staff were very attentive, explaining everything in detail.",
+    "Great place! High quality specialists doing their job very well.",
+    "ძალიან დიდი მადლობა, პროფესიონალების ჯგუფს.",
+    "Buenos doctores, muy profesionales. Sonrisa perfecta!"
   ];
 
   return (
@@ -193,7 +193,9 @@ function ReviewsSection() {
                   <Star key={i} size={11} fill="currentColor" strokeWidth={0} />
                 ))}
               </div>
-              <p className="font-serif text-3xl md:text-5xl text-foreground tracking-tight italic opacity-90">"{review}"</p>
+              <p className="font-serif text-3xl md:text-5xl text-foreground tracking-tight italic opacity-90 text-center px-4 max-w-2xl whitespace-normal leading-tight">
+                "{review}"
+              </p>
             </div>
           ))}
         </motion.div>
