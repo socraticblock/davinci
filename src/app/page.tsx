@@ -171,29 +171,33 @@ function ReviewsSection() {
   ];
 
   return (
-    <section id="reviews" className="w-full py-48 bg-[#F9F7F2]/50 backdrop-blur-sm border-y border-neutral-200/50 overflow-hidden flex flex-col items-center">
-      <motion.span 
+    <section id="reviews" className="w-full py-40 bg-[#F9F7F2]/50 backdrop-blur-sm border-y border-neutral-200/50 overflow-hidden flex flex-col items-center">
+      <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        className="text-[10px] tracking-[0.4em] uppercase text-neutral-400 mb-20 font-bold"
+        transition={{ duration: 1 }}
+        className="flex flex-col items-center mb-16"
       >
-        The 5.0 Standard
-      </motion.span>
+        <span className="text-[9px] tracking-[0.5em] uppercase text-accent font-bold mb-4">
+          Patron Testimony
+        </span>
+        <h2 className="font-serif text-2xl text-foreground opacity-80">The 5.0 Standard</h2>
+      </motion.div>
       
       <div className="relative w-full flex overflow-hidden">
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
-          transition={{ ease: "linear", duration: 45, repeat: Infinity }}
-          className="flex whitespace-nowrap"
+          transition={{ ease: "linear", duration: 60, repeat: Infinity }}
+          className="flex whitespace-nowrap items-center"
         >
           {[...reviews, ...reviews, ...reviews, ...reviews].map((review, idx) => (
-            <div key={idx} className="flex flex-col items-center justify-center mx-24">
-              <div className="flex space-x-1.5 mb-8 text-accent/40">
+            <div key={idx} className="flex flex-col items-center justify-center mx-32 max-w-sm">
+              <div className="flex space-x-1 mb-6 text-accent/50">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} size={11} fill="currentColor" strokeWidth={0} />
+                  <Star key={i} size={9} fill="currentColor" strokeWidth={0} />
                 ))}
               </div>
-              <p className="font-serif text-3xl md:text-5xl text-foreground tracking-tight italic opacity-90 text-center px-4 max-w-2xl whitespace-normal leading-tight">
+              <p className="font-serif text-lg md:text-xl text-foreground tracking-wide italic opacity-80 text-center whitespace-normal leading-relaxed">
                 "{review}"
               </p>
             </div>
