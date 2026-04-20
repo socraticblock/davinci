@@ -38,6 +38,7 @@ export default function Home() {
       <main className="flex min-h-screen flex-col items-center overflow-hidden">
         <HeroSection />
         <ServicesSection />
+        <AboutSection />
         <ReviewsSection />
         <ContactSection />
         <Footer />
@@ -123,6 +124,66 @@ function ServicesSection() {
           label="Prevention"
           subtext="Lasting sophistication."
         />
+      </div>
+    </section>
+  );
+}
+
+function AboutSection() {
+  return (
+    <section id="about" className="w-full max-w-7xl px-8 py-48 flex flex-col items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+        {/* Text Content */}
+        <motion.div
+           variants={revealContainer}
+           initial="hidden"
+           whileInView="visible"
+           viewport={{ once: true, margin: "-100px" }}
+           className="flex flex-col"
+        >
+          <motion.span variants={settleUp} className="text-[10px] uppercase tracking-[0.4em] text-accent font-bold mb-6 font-sans">
+            Architectural Mastery
+          </motion.span>
+          <motion.h2 variants={settleUp} className="font-serif text-5xl md:text-6xl text-foreground mb-4">
+            The Lead Clinical <br /> Architect
+          </motion.h2>
+          <motion.span variants={settleUp} className="text-xl font-serif text-foreground/60 mb-12 italic">
+            Dr. Nikoloz Jorjikashvili
+          </motion.span>
+          
+          <motion.p variants={settleUp} className="text-sm text-neutral-500 leading-loose max-w-lg mb-16 font-sans">
+            Dr. Nikoloz Jorjikashvili leads the DaVinci studio with over a decade of clinical mastery. Specializing in the delicate intersection of structural orthodontics and facial aesthetics, his approach treats every case as a unique anatomical challenge. By harmonizing scientific precision with an artist’s eye, he delivers transformations that are as functionally sound as they are visually stunning.
+          </motion.p>
+          
+          <div className="space-y-12">
+            <motion.div variants={settleUp} className="flex flex-col">
+              <h3 className="text-[10px] uppercase tracking-[0.3em] text-foreground font-bold mb-3 font-sans">Clinical Focus & Mastery</h3>
+              <p className="font-serif text-2xl text-foreground opacity-80">The Vitruvian Standard of Care</p>
+            </motion.div>
+            
+            <motion.p variants={settleUp} className="text-sm text-neutral-400 leading-loose max-w-md font-sans">
+              Our practice is dedicated to the philosophy that a smile is a masterpiece of engineering. With 10+ years of treatng complex clinical cases, Dr. Jorjikashvili has defined a new standard for natural restoration in Tbilisi, ensuring every patient receives a result that is uniquely theirs.
+            </motion.p>
+          </div>
+        </motion.div>
+
+        {/* Portait Placeholder */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true }}
+          className="relative aspect-[4/5] bg-neutral-900 overflow-hidden rounded-sm group"
+        >
+          {/* Subtle noise/gradient in the placeholder */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-black to-neutral-800 opacity-50" />
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <span className="text-[10px] uppercase tracking-[0.4em] text-white/20">Lead Portrait</span>
+          </div>
+          
+          {/* Glass frame overlay */}
+          <div className="absolute inset-0 border border-white/5 group-hover:border-accent/30 transition-colors duration-700" />
+        </motion.div>
       </div>
     </section>
   );
