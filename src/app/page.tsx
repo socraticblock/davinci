@@ -4,6 +4,7 @@ import { motion, useAnimation, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Star } from "lucide-react";
 import { Navbar } from "@/components/navbar";
+import { clsx } from "clsx";
 
 const staggerContainer = {
   hidden: { opacity: 0 },
