@@ -178,7 +178,7 @@ function AboutSection() {
           <img 
             src="/images/dr-nikoloz.png" 
             alt="Dr. Nikoloz Jorjikashvili" 
-            className="w-full h-full object-cover transition-all duration-1000 ease-out grayscale group-hover:grayscale-0 group-hover:scale-105"
+            className="w-full h-full object-cover transition-all duration-1000 ease-out group-hover:scale-105"
           />
           
           {/* Glass frame overlay */}
